@@ -172,7 +172,51 @@ make check    # Run tests
 
 ## CI/CD Integration
 
-### GitHub Actions
+### GitHub Actions (Reusable Action - Recommended)
+
+Add to your workflow in one line:
+
+```yaml
+name: Agent Config Scan
+on: [push, pull_request]
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bphansg/agent-hook-scan@main
+        with:
+          fail-on: high
+```
+
+**With SARIF upload:**
+
+```yaml
+name: Agent Config Scan
+on: [push, pull_request]
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bphansg/agent-hook-scan@main
+        with:
+          path: .
+          fail-on: high
+          sarif-path: findings.sarif
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: findings.sarif
+```
+
+**Available inputs:**
+- `path` (default: `.`) - Directory to scan
+- `fail-on` (default: `high`) - Fail CI on findings at or above this severity (`high`, `medium`, `low`, `info`)
+- `sarif-path` (optional) - Output SARIF file for GitHub Security tab integration
+
+### GitHub Actions (Manual Installation)
 
 ```yaml
 name: Agent Config Scan
