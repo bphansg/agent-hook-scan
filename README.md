@@ -317,6 +317,12 @@ A: Yes. Uses modern stdlib features. If you need 3.9/3.10, feel free to fork and
 
 ---
 
+## Census Recoder
+
+A reference implementation for classifying Cursor `hooks.json` command strings is available at [`census/recode.py`](census/recode.py). This is **not** the scanner and is provided for research purposes.
+
+---
+
 ## License
 
 Apache License 2.0. See [LICENSE](LICENSE) for full text.
