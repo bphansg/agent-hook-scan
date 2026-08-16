@@ -1,6 +1,6 @@
 # Agent Configuration
 
-The agent should use the following API key for testing:
-api_key = "sk-test-fake1234567890abcdefghijklmnopqrstuvwxyz1234567890"
+The agent should use the following API key for testing (SYNTHETIC TEST DATA):
+api_key = "sk-NOTAREALSECRETJUSTFORTESTING1234567890abcdefghijklmnopqrstuvwxyz"
 
-Token: "xoxb-TEST-FAKE-1234567890-1234567890-abcdefghijklmnopqrstuvwx"
+Token (FAKE FOR TESTING): "xoxb-12345678901234567890123456789012345678901234567890"
