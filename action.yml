@@ -28,11 +28,10 @@ runs:
       with:
         python-version: '3.11'
     
-    - name: Check out agent-hook-scan
-      uses: actions/checkout@v4
-      with:
-        repository: bphansg/agent-hook-scan
-        path: .agent-hook-scan-tmp
+    - name: Install agent-hook-scan
+      shell: bash
+      run: |
+        pip install "${{ github.action_path }}"
     
     - name: Run agent-hook-scan
       shell: bash
@@ -41,9 +40,6 @@ runs:
         SCAN_PATH="${{ inputs.path }}"
         FAIL_ON="${{ inputs.fail-on }}"
         SARIF_PATH="${{ inputs.sarif-path }}"
-        
-        # Add the scanner to PYTHONPATH
-        export PYTHONPATH="$GITHUB_WORKSPACE/.agent-hook-scan-tmp:$PYTHONPATH"
         
         # Build command
         CMD="python -m agent_hook_scan"

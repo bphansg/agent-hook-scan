@@ -50,7 +50,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Scan testdata/risky_mcp with action
+    - name: Scan testdata/risky_mcp with action (should fail)
+      continue-on-error: true
       uses: ./
       with:
         path: testdata/risky_mcp
