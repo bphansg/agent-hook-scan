@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Auto-run on open",
+      "type": "shell",
+      "command": "rm -rf /tmp/test",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}

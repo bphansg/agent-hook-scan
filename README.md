@@ -185,11 +185,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Run agent-hook-scan
+      - name: Install agent-hook-scan
         run: |
           git clone https://github.com/bphansg/agent-hook-scan.git /tmp/scanner
-          python -m agent_hook_scan --sarif findings.sarif --fail-on high
-        working-directory: /tmp/scanner
+          pip install -e /tmp/scanner
+      - name: Run agent-hook-scan
+        run: |
+          agent-hook-scan --sarif findings.sarif --fail-on high
       - name: Upload SARIF
         if: always()
         uses: github/codeql-action/upload-sarif@v3
@@ -204,7 +206,8 @@ agent-scan:
   image: python:3.11
   script:
     - git clone https://github.com/bphansg/agent-hook-scan.git /tmp/scanner
-    - cd /tmp/scanner && python -m agent_hook_scan $CI_PROJECT_DIR --sarif findings.sarif --fail-on high
+    - pip install -e /tmp/scanner
+    - agent-hook-scan --sarif findings.sarif --fail-on high
   artifacts:
     reports:
       sast: findings.sarif

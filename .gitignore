@@ -30,9 +30,13 @@ ENV/
 env.bak/
 venv.bak/
 
-# IDE
-.vscode/
-.idea/
+# Environment files (root only, allow testdata fixtures)
+/.env
+/.env.*
+
+# IDE (root only, allow testdata fixtures)
+/.vscode/
+/.idea/
 *.swp
 *.swo
 *~
