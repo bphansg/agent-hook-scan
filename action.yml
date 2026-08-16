@@ -42,8 +42,11 @@ runs:
         FAIL_ON="${{ inputs.fail-on }}"
         SARIF_PATH="${{ inputs.sarif-path }}"
         
+        # Add the scanner to PYTHONPATH
+        export PYTHONPATH="$GITHUB_WORKSPACE/.agent-hook-scan-tmp:$PYTHONPATH"
+        
         # Build command
-        CMD="python .agent-hook-scan-tmp/agent_hook_scan/__main__.py"
+        CMD="python -m agent_hook_scan"
         
         # Add path argument
         CMD="$CMD \"$SCAN_PATH\""
