@@ -184,7 +184,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: bphansg/agent-hook-scan@main
+      - uses: bphansg/agent-hook-scan@v0.1.0
         with:
           fail-on: high
 ```
@@ -199,7 +199,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: bphansg/agent-hook-scan@main
+      - uses: bphansg/agent-hook-scan@v0.1.0
         with:
           path: .
           fail-on: high
@@ -210,6 +210,8 @@ jobs:
         with:
           sarif_file: findings.sarif
 ```
+
+> **Note:** You can also use `@main` for the latest development version, but `@v0.1.0` is recommended for production stability.
 
 **Available inputs:**
 - `path` (default: `.`) - Directory to scan
