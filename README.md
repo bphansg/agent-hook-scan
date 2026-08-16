@@ -8,6 +8,16 @@ Scan Cursor, Claude, and MCP agent configs for risky hooks, over-broad tools, an
 
 ---
 
+## Who This Is For
+
+If you ship `.cursor/hooks.json`, Claude Desktop configs, or MCP server definitions to your team or users, **this catches risky patterns before they land in production.**
+
+One CI job flags `curl | sh` hook installers and unpinned GitHub Actions in your agent configs—the same supply-chain risks you already guard against in application code.
+
+**Dogfooded in production**: [bphansg/attractor](https://github.com/bphansg/attractor) CI runs `bphansg/agent-hook-scan@v0.1.0` on every PR.
+
+---
+
 ## ⚡ 60-Second Quickstart
 
 ```bash
