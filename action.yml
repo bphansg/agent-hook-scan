@@ -1,0 +1,63 @@
+name: 'Agent Hook Scan'
+description: 'Scan AI agent configs for risky hooks, over-broad tools, and embedded secrets'
+author: 'Binh Phan'
+
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  path:
+    description: 'Directory to scan (relative to workspace root)'
+    required: false
+    default: '.'
+  fail-on:
+    description: 'Exit with code 1 if any findings at or above this severity (high, medium, low, info)'
+    required: false
+    default: 'high'
+  sarif-path:
+    description: 'Optional path to output SARIF file (e.g., findings.sarif)'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Check out agent-hook-scan
+      uses: actions/checkout@v4
+      with:
+        repository: bphansg/agent-hook-scan
+        path: .agent-hook-scan-tmp
+    
+    - name: Run agent-hook-scan
+      shell: bash
+      run: |
+        cd "$GITHUB_WORKSPACE"
+        SCAN_PATH="${{ inputs.path }}"
+        FAIL_ON="${{ inputs.fail-on }}"
+        SARIF_PATH="${{ inputs.sarif-path }}"
+        
+        # Build command
+        CMD="python .agent-hook-scan-tmp/agent_hook_scan/__main__.py"
+        
+        # Add path argument
+        CMD="$CMD \"$SCAN_PATH\""
+        
+        # Add fail-on if specified
+        if [ -n "$FAIL_ON" ]; then
+          CMD="$CMD --fail-on $FAIL_ON"
+        fi
+        
+        # Add SARIF output if specified
+        if [ -n "$SARIF_PATH" ]; then
+          CMD="$CMD --sarif \"$SARIF_PATH\""
+        fi
+        
+        # Run the scanner
+        echo "Running: $CMD"
+        eval "$CMD"

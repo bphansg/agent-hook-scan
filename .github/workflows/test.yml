@@ -43,3 +43,25 @@ jobs:
       run: |
         python -m agent_hook_scan testdata/risky_mcp --sarif test-output.sarif
         test -f test-output.sarif
+  
+  # Dogfood the reusable action
+  dogfood-action:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Scan testdata/risky_mcp with action
+      uses: ./
+      with:
+        path: testdata/risky_mcp
+        fail-on: high
+        sarif-path: risky-findings.sarif
+    
+    - name: Verify SARIF was created
+      run: test -f risky-findings.sarif
+    
+    - name: Scan testdata/clean_repo with action (should pass)
+      uses: ./
+      with:
+        path: testdata/clean_repo
+        fail-on: high
